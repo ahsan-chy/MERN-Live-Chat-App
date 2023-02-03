@@ -3,7 +3,7 @@ import React from 'react'
 const Home = () => {
   return (
     <div >
-      <h2 >Folder Structure</h2>
+      <h2 >Second Chat</h2>
     </div>
   )
 }
