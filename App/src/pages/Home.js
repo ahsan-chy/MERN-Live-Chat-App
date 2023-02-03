@@ -5,7 +5,7 @@ import {nanoid} from "nanoid"
 
 //no dotenv
 const socket = io.connect("http://localhost:5000");
-const userName = nanoid(4)
+const userName = nanoid(4);
 
 const Home = () => {
   const [message, setMessage] = useState('');
