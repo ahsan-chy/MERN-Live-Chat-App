@@ -1,2 +1,5 @@
-# MERN Chat App 
+# MERN Chat App - 
+
+First Chat App
+ 
 
