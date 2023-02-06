@@ -18,12 +18,11 @@ const Home = () => {
 
     setMessage('')
   }
-  useEffect(() => {
-    socket.on("chat",  (payload) => {
-      setChat([...chat, payload])
-    }
-    )
-  },[message]);
+useEffect(() => {
+  socket.on("chat",  (payload) => {
+    setChat([...chat, payload])
+  })
+},[chat]);
 
   return (
     <div className='container'>
