@@ -25,10 +25,10 @@ const Home = () => {
   return (
     <div className='container'>
       <div className="container ">
-        <div className='border py-2 m-5 border-1 rounded-3 ms-auto me-auto  shadow-sm  w-50'>
+        <div className='border py-2 mt-5 border-1 rounded-3 ms-auto me-auto  shadow-sm'>
         {showChat === false ?
-        <div>
-          <h2 className='text-info'>Chat App</h2>
+        <div className='py-3'>
+          <h2 className='text-info'> ChatSpark 💬 </h2>
           <div className='mx-5 mb-3'>
           <form onSubmit={sendChat}>
             <div className="mb-3">

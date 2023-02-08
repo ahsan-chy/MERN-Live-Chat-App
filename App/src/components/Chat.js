@@ -39,9 +39,9 @@ useEffect(() => {
     // return console.log("Run Only Once")
 }, [socket]);
 return (
-        <div className=' m-5 ms-auto me-auto  '>
+        <div className=' py-3 ms-auto me-auto px-3 '>
             <div className="chat-header">
-                <h2 className='text-info'>Chat App</h2>
+                <h2 className='text-info'> ChatSpark 💬 </h2>
             </div>
             <div className="chat-body">
             <ScrollToBottom className="message-container">
@@ -50,9 +50,9 @@ return (
                         <div className="message"
                         id={userName === messageContent.author ? 'you': 'other'}
                         >
-                            <div>
+                            <div className='flex'>
                                 <div className='message-content'>
-                                    <p>{messageContent.message}</p>
+                                    <span>{messageContent.message}</span>
                                 </div>
                                 <div className='message-meta'>
                                     <p id='time'>{messageContent.time}</p>
@@ -66,10 +66,10 @@ return (
                 </ScrollToBottom>
             </div>
 
-        <div className='mx-5 mb-3'>
-          <form onSubmit={sendMessage}  class="d-flex justify-content-between">
-            <div className="mb-3 col-auto w-75">
-              <input type="text" className="form-control"  
+        <div className='my-3'>
+          <form onSubmit={sendMessage}  class="d-flex">
+            <div className="mb-3 col-10 pe-2">
+              <input type="text" className="form-control w-100"  
                   name="chat"
                   placeholder='Chat Message'
                   value={currentMessage}
@@ -79,9 +79,9 @@ return (
                   }
               />
               </div>
-               <div class="col-auto">
-                    <button type="submit" className="btn btn-success"> Send 
-                        <img src='https://cdn-icons-png.flaticon.com/512/9226/9226997.png' alt='send' width="20"/>
+               <div class="col-2">
+                    <button type="submit" className="btn btn-success w-100">Send 
+                         <img src='https://cdn-icons-png.flaticon.com/512/9226/9226997.png' alt='send' className='send-icon'/>
                     </button>
             </div>
             
