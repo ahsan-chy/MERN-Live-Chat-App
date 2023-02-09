@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import "./chat.css";
+import data from '@emoji-mart/data'
+import Picker from '@emoji-mart/react'
 
 const Chat = ({socket, userName , room}) => {
     const [currentMessage, setCurrentMessage] = useState("");
+    // const [emoji, setEmoji] = useState("");
+    const [selectEmojis, setSelectEmojis] = useState(false)
     const [messageList, setMessageList] = useState([]);
 
-    // console.log("Socket Otside useeffect", socket)
-
-
+const addEmoji = (e) =>{
+    let emoji = e.native
+    setCurrentMessage(currentMessage + emoji) 
+    console.log("show emojis function", emoji)
+    setSelectEmojis(false);
+}
 const sendMessage = async(e) => {
     e.preventDefault();
     if(currentMessage !== "")
@@ -27,16 +34,17 @@ const sendMessage = async(e) => {
         setCurrentMessage("")
     }
 }
+const showEmojis = () => {
+    console.log("show emojis function")
+    setSelectEmojis(true);
+}
 const receiveMessage = () => {
     socket.on("receive_message", (data) => {
         setMessageList((list) => [...list, data])
     })
 }
 useEffect(() => {
-    // console.log("First Time Run")
-    // console.log("Socket inside useeffect", socket)
     receiveMessage()
-    // return console.log("Run Only Once")
 }, [socket]);
 return (
         <div className=' py-3 ms-auto me-auto px-3 '>
@@ -47,7 +55,7 @@ return (
             <ScrollToBottom className="message-container">
                 {messageList.map((messageContent, index)=> (
                         // <h2 key={index}>{m.message}</h2>
-                        <div className="message"
+                        <div className="message" key={index}
                         id={userName === messageContent.author ? 'you': 'other'}
                         >
                             <div className='flex'>
@@ -60,29 +68,38 @@ return (
                                 </div>
                             </div>
                         </div>
-
                     ))
                 }
                 </ScrollToBottom>
             </div>
-
         <div className='my-3'>
-          <form onSubmit={sendMessage}  class="d-flex">
-            <div className="mb-3 col-10 pe-2">
+          <form onSubmit={sendMessage}  className="d-flex">
+          <div className="col-1">
+          <img src='https://cdn-icons-png.flaticon.com/512/2550/2550370.png' alt='send' className='file-icon'/>
+          </div>
+            <div className="mb-3 col-8">
               <input type="text" className="form-control w-100"  
                   name="chat"
                   placeholder='Chat Message'
                   value={currentMessage}
                   onChange={(e) => {
                     setCurrentMessage(e.target.value)
-                  }
-                  }
+                }}
               />
               </div>
-               <div class="col-2">
-                    <button type="submit" className="btn btn-success w-100">Send 
-                         <img src='https://cdn-icons-png.flaticon.com/512/9226/9226997.png' alt='send' className='send-icon'/>
-                    </button>
+              <div className="col-1">
+                {selectEmojis ? 
+                    <Picker data={data} onEmojiSelect={addEmoji} />
+                    :
+                    <span className='getEmojiButton' onClick={showEmojis}>
+                        <img src='https://cdn-icons-png.flaticon.com/512/742/742923.png' alt='send' className='emoji-icon'/>
+                    </span>
+                    }
+                </div>
+               <div className="col-2">
+                <button type="submit" className="btn btn-success w-100">Send 
+                        <img src='https://cdn-icons-png.flaticon.com/512/9226/9226997.png' alt='send' className='send-icon'/>
+                </button>
             </div>
             
           </form>

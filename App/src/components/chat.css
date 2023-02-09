@@ -19,7 +19,8 @@
   }
   .chat-body .message {
     height: auto;
-    padding: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
     display: flex;
   }
   
@@ -87,3 +88,16 @@
     width: 20px;
     height: auto;
   }
+  .emoji-icon{
+    width: 30px;
+    height: auto;
+  }
+  .file-icon{
+    cursor: pointer;
+    width: 30px;
+    height: auto;
+  }
+
+.getEmojiButton{
+  cursor: pointer;
+}
