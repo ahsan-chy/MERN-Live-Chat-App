@@ -21,10 +21,10 @@ io.on("connection", (socket)=>{
     // console.log("socket", socket,"\n");
     console.log("Socket Id", socket.id)
 
-    // socket.on("chat", (payload) => {
-    //   console.log("User Chat", payload);
-    //   io.emit("chat", payload)
-    // });
+    socket.on("chat", (payload) => {
+      console.log("User Chat", payload);
+      io.emit("chat", payload)
+    });
     socket.on("join_room", (data)=>{
         socket.join(data);
         console.log(`user with ID: ${socket.id} joined room: ${data}`);
