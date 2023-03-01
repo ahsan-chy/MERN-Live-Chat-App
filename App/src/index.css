@@ -14,8 +14,9 @@ body {
   background-color: #fbfdfa;
 }
 :root {
-    --orange-clr: #ff9600;
-    --green-clr: #0e8a8a;
+    --orange-clr: #ffb229;
+    --green-clr: #00AE7F;
     --black-clr:#363636;
     --gray-clr:#63636d;
+    --light-clr:#f4f4f4;
 }
