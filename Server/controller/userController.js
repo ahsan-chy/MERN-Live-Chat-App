@@ -22,7 +22,7 @@ const loginUser = async(req, res) =>{
         res.status(400).json({error: err.message})
     }
 }
-
+    
 // ---- Signup user
 const signUp = async(req, res) =>{
     const {email, password } = req.body; 

@@ -5,6 +5,9 @@ import "../../assests/css/login.css";
 import login from "../../assests/images/Login.png";
 import { useDispatch, useSelector } from 'react-redux';
 import { email, token } from "../../redux/userSlice";
+import axios from "axios";
+
+const URL = 'http://localhost:5000/api/user/login';
 
 const Logins = () => {
   const [userEmail, setUserEmail] = useState("");
@@ -15,12 +18,29 @@ const Logins = () => {
   // const passwords = useSelector((state) => state.user.token);
   // console.log(emails,passwords)
 
-  const submitLogin = (e) => {
+  const submitLogin = async(e) => {
     e.preventDefault();
-    // console.log("Email:", email)
-    // console.log("Password:", password)
-    dispatch(email(userEmail));
-    dispatch(token(password));
+    if( !email || !password)
+    {
+        alert("Fill All Fields")
+    }
+    else{
+        try{
+            const res = await axios.post(URL, {
+                  email: "xyzz@gmail.com",
+                  password: "Abcd@123"
+            }).then(response => {
+              // console.log(response)
+              // console.log(response.data)
+              const user = response.data
+              dispatch(email(user.email));
+              dispatch(token(user.token));
+            })
+          }
+          catch (error){
+            console.log("Error is Error",error.message)
+          }
+        }
   };
 
   return (
