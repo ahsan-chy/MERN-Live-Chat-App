@@ -3,20 +3,20 @@ import { Box, Button, FormControl, TextField, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import "../../assests/css/login.css";
 import login from "../../assests/images/Login.png";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { email, token } from "../../redux/userSlice";
 import axios from "axios";
+import LinkButton from "../Link";
+import { LOGIN_URL } from "../../constants/apis";
+import { useNavigate } from "react-router-dom";
 
-const URL = 'http://localhost:5000/api/user/login';
 
 const Logins = () => {
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate()
   const dispatch = useDispatch();
-  // const emails = useSelector((state) => state.user.email);
-  // const passwords = useSelector((state) => state.user.token);
-  // console.log(emails,passwords)
 
   const submitLogin = async(e) => {
     e.preventDefault();
@@ -26,12 +26,13 @@ const Logins = () => {
     }
     else{
         try{
-            const res = await axios.post(URL, {
-                  email: "xyzz@gmail.com",
-                  password: "Abcd@123"
+            const res = await axios.post(LOGIN_URL, {
+                  email: userEmail,
+                  password: password
             }).then(response => {
               // console.log(response)
-              // console.log(response.data)
+              console.log(response.data)
+              navigate('/')
               const user = response.data
               dispatch(email(user.email));
               dispatch(token(user.token));
@@ -104,17 +105,19 @@ const Logins = () => {
                   </Button>
                 </FormControl>
                 <Box>
-                  <Typography
-                    variant="subtitle1"
-                    sx={{ textAlign: "center", my: 5 }}
-                  >
-                    Forgot Password
-                  </Typography>
+                  <Box style={{display:'flex', justifyContent:'space-between', marginTop:20, marginBottom:20}}>
+
+                  <LinkButton to="/signup" label={"Signup"} className="btn-link" />
+
+                  <LinkButton to="/forgot-password" label={"Forgot Password"} className="btn-link"  />
+
+                  </Box>
                   <FormControl fullWidth variant="standard">
                     <Button variant="contained" className="social-btn">
                       Social Login
                     </Button>
                   </FormControl>
+                  
                 </Box>
               </form>
             </Box>

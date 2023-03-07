@@ -8,11 +8,11 @@
     margin-top: 30px;
 }
 
-.login-heading{
+.signup-heading{
     color: var(--green-clr);
     font-size: 30px !important;
 }
-.login-btn{
+.signup-btn{
     padding: 9px;
     border-radius: 4px;
     font-size: 16px;
@@ -22,13 +22,13 @@
     background-color: var(--green-clr) !important;
     cursor: pointer;
 }
-.login-btn:hover{
+.signup-btn:hover{
     background-color: var(--green-clr);
     -webkit-box-shadow: 3px 14px 26px -1px rgba(0,174,127,0.35) !important;
     -moz-box-shadow: 3px 14px 26px -1px rgba(0,174,127,0.35) !important;
     box-shadow: 3px 14px 26px -1px rgba(0,174,127,0.35) !important;
 }
-.login-btn:active{
+.signup-btn:active{
     -webkit-box-shadow: 3px 14px 26px -1px rgba(0,174,127,0.35) !important;
     -moz-box-shadow: 3px 14px 26px -1px rgba(0,174,127,0.35) !important;
     box-shadow: 3px 14px 26px -1px rgba(0,174,127,0.35) !important;
@@ -54,4 +54,13 @@
 
 .css-v4u5dn-MuiInputBase-root-MuiInput-root:after{
     border-bottom: 2px solid #00ae7f !important;
+}
+
+.login-btnn{
+    text-decoration:none  !important; 
+    color:var(--green-clr) !important;
+}
+.login-btnn:hover{
+    color: #008964 !important;
+    text-decoration: underline !important;
 }

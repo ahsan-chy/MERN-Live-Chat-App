@@ -55,3 +55,12 @@
 .css-v4u5dn-MuiInputBase-root-MuiInput-root:after{
     border-bottom: 2px solid #00ae7f !important;
 }
+
+.btn-link{
+    text-decoration:none  !important; 
+    color:var(--green-clr) !important
+}
+.btn-link:hover{
+    color: #008964 !important;
+    text-decoration: underline !important;
+}
