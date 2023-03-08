@@ -9,7 +9,8 @@ import axios from "axios";
 import LinkButton from "../Link";
 import { LOGIN_URL } from "../../constants/apis";
 import { useNavigate } from "react-router-dom";
-
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const Logins = () => {
   const [userEmail, setUserEmail] = useState("");
@@ -22,7 +23,16 @@ const Logins = () => {
     e.preventDefault();
     if( !email || !password)
     {
-        alert("Fill All Fields")
+      toast.error('All Fields Must be field', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
     }
     else{
         try{
@@ -32,15 +42,48 @@ const Logins = () => {
             }).then(response => {
               // console.log(response)
               console.log(response.data)
-              navigate('/')
+              
               const user = response.data
               dispatch(email(user.email));
               dispatch(token(user.token));
-            })
+              toast.success('SignIn Successfully', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
+                navigate('/')
+            }).catch(error => {
+              console.log(error.response.data.error)
+              toast.error(error.response.data.error, {
+                  position: "top-right",
+                  autoClose: 3000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+                  });
+          })
           }
           catch (error){
-            console.log("Error is Error",error.message)
-          }
+            console.log(error.response.data.error)
+            toast.error(error.response.data.error, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
+        }
         }
   };
 
@@ -109,7 +152,7 @@ const Logins = () => {
 
                   <LinkButton to="/signup" label={"Signup"} className="btn-link" />
 
-                  <LinkButton to="/forgot-password" label={"Forgot Password"} className="btn-link"  />
+                  <LinkButton to="/reset-password" label={"Reset Password"} className="btn-link"  />
 
                   </Box>
                   <FormControl fullWidth variant="standard">

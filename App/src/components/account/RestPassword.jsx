@@ -5,20 +5,19 @@ import "../../assests/css/signup.css";
 import signup from "../../assests/images/signup.png";
 import LinkButton from "../Link";
 import { useDispatch } from "react-redux";
-import { SIGNUP_URL } from "../../constants/apis";
+import { RESET_PASSWORD_URL } from "../../constants/apis";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-const Signups = () => {
-  const [userName, setUserName] = useState("");
+const RestPassword = () => {
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate()
 
-  const submitSignup = async (e) => {
+  const submitReset = async (e) => {
     e.preventDefault();
     if ( !userEmail || !password) {
       toast.error('All Fields Must be field', {
@@ -34,15 +33,13 @@ const Signups = () => {
     } else {
       try {
         const res = await axios
-          .post(SIGNUP_URL, {
+          .patch(`${RESET_PASSWORD_URL}${userEmail}`, {
             // userName: "abc@gmail.com",
-            email: userEmail,
             password: password,
           })
           .then((response) => {
             // console.log(response)
-            console.log(response.data);
-            toast.success('SignUp Successfully', {
+            toast.success('Password Reset Successfully', {
               position: "top-right",
               autoClose: 2000,
               hideProgressBar: false,
@@ -52,6 +49,7 @@ const Signups = () => {
               progress: undefined,
               theme: "light",
               });
+            console.log("response.data", response.data);
             navigate("/login")
           }).catch(error => {
             console.log(error.response.data.error)
@@ -100,21 +98,10 @@ const Signups = () => {
             sx={{ flexGrow: 1, textAlign: "left", px: 21, mt: 10 }}
           >
             <Typography variant="h4" className="signup-heading">
-              Sign Up
+              Forgot Password
             </Typography>
             <Box>
-              <form onSubmit={submitSignup}>
-                <FormControl fullWidth variant="standard" sx={{ my: 2 }}>
-                  <TextField
-                    type="text"
-                    id="username"
-                    label="Username"
-                    variant="standard"
-                    className="input-box"
-                    value={userName}
-                    onChange={(e) => setUserName(e.target.value)}
-                  />
-                </FormControl>
+              <form onSubmit={submitReset}>
                 <FormControl fullWidth variant="standard" sx={{ my: 2 }}>
                   <TextField
                     type="email"
@@ -143,7 +130,7 @@ const Signups = () => {
                     className="signup-btn"
                     type="submit"
                   >
-                    Sign Up
+                    Reset Password
                   </Button>
                 </FormControl>
                 <Box>
@@ -161,11 +148,6 @@ const Signups = () => {
                       className="login-btnn"
                     />
                   </Box>
-                  <FormControl fullWidth variant="standard">
-                    <Button variant="contained" className="social-btn">
-                      Signup with Google
-                    </Button>
-                  </FormControl>
                 </Box>
               </form>
             </Box>
@@ -176,4 +158,4 @@ const Signups = () => {
   );
 };
 
-export default Signups;
+export default RestPassword;
