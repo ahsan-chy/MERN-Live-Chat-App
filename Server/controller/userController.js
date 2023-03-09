@@ -18,8 +18,8 @@ const loginUser = async(req, res) =>{
 
         // create token
         const token = createToken(user._id)
-        // -- 
-        res.setHeader('Access-Control-Allow-Credentials', true)
+        // -- Save Cookies
+        // res.setHeader('Access-Control-Allow-Credentials', true)
         res.cookie('jwt', token, {
             httpOnly: true,
             maxAge: 24*60*1000
@@ -37,9 +37,9 @@ const loginUser = async(req, res) =>{
 const signUp = async(req, res) =>{
     const {email, password } = req.body;
     
-    // --- Get Cookie from header 
+    // --- Get Cookie from header Display/ Get Cookies 
     console.log(req.cookies)
-    console.log(req.cookies.jwt)
+    // console.log(req.cookies.jwt)
 
     try{
         const user = await User.signup(email, password);

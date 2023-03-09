@@ -8,7 +8,6 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const userRoutes = require("./routes/route")
 const cookieParser = require('cookie-parser');
-const setHeader = require('set-headers')
 
 const io = require("socket.io")(server,{
     cors:{
@@ -22,8 +21,8 @@ const io = require("socket.io")(server,{
 //Middleware
 // app.use(morgan('tiny'))
 app.use(cors({
-    origin: "http://localhost:3000",
-    credentials: true, 
+    origin: "http://localhost:3000",    //Step 2: Specify origin
+    credentials: true,  //Step 3: Credintials True (It will work to make both parties available to exchange data)
     
 }))
 app.use(bodyParser.json({extended: true}))
