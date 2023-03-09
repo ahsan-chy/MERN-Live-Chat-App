@@ -3,6 +3,7 @@ const User = require('../models/UserModel')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const validator = require('validator')
+const cookieParser = require('cookie-parser')
 
 const createToken = (_id) => {
    return  jwt.sign({_id}, process.env.SECRET, { expiresIn: '1h' })
@@ -17,7 +18,13 @@ const loginUser = async(req, res) =>{
 
         // create token
         const token = createToken(user._id)
-
+        // -- 
+        res.setHeader('Access-Control-Allow-Credentials', true)
+        res.cookie('jwt', token, {
+            httpOnly: true,
+            maxAge: 24*60*1000
+        })
+        // res.cookie('jwttoken', token, {expires: new Date(Date.now() + 25892000000), httpOnly: true });
         res.status(200).json({email, token})
         // res.status(200).json({user})
     }
@@ -28,7 +35,11 @@ const loginUser = async(req, res) =>{
     
 // ---- Signup user
 const signUp = async(req, res) =>{
-    const {email, password } = req.body; 
+    const {email, password } = req.body;
+    
+    // --- Get Cookie from header 
+    console.log(req.cookies)
+    console.log(req.cookies.jwt)
 
     try{
         const user = await User.signup(email, password);
@@ -66,10 +77,6 @@ const restPassword = async(req, res) => {
         // return  res.status(400).json({message: 'Password not strong'})
         throw Error("Password not strong")
      }
-
-   
-    
-    
     // let token;
     
     // --- Match Password

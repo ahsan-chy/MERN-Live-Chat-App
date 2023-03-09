@@ -7,7 +7,8 @@ const server = require("http").createServer(app);
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const userRoutes = require("./routes/route")
-
+const cookieParser = require('cookie-parser');
+const setHeader = require('set-headers')
 
 const io = require("socket.io")(server,{
     cors:{
@@ -20,9 +21,14 @@ const io = require("socket.io")(server,{
  
 //Middleware
 // app.use(morgan('tiny'))
-app.use(cors())
+app.use(cors({
+    origin: "http://localhost:3000",
+    credentials: true, 
+    
+}))
 app.use(bodyParser.json({extended: true}))
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(cookieParser());
 
 // const io = new Server(server, {
 //     cors:{

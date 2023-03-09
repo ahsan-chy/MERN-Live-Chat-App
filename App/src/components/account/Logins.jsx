@@ -39,6 +39,8 @@ const Logins = () => {
             const res = await axios.post(LOGIN_URL, {
                   email: userEmail,
                   password: password
+            },{
+              withCredentials: true,
             }).then(response => {
               // console.log(response)
               console.log(response.data)

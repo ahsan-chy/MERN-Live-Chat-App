@@ -70,7 +70,7 @@ userSchema.statics.login = async function(email, password) {
     {
         throw Error("Incorrect password");
     }
-
+    
     return user
 }
 
