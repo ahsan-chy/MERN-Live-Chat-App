@@ -13,13 +13,13 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const RestPassword = () => {
   const [userEmail, setUserEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
 
   const navigate = useNavigate()
 
   const submitReset = async (e) => {
     e.preventDefault();
-    if ( !userEmail || !password) {
+    if ( !userEmail || !newPassword) {
       toast.error('All Fields Must be field', {
         position: "top-right",
         autoClose: 3000,
@@ -32,13 +32,12 @@ const RestPassword = () => {
         });
     } else {
       try {
-        const res = await axios
-          .patch(`${RESET_PASSWORD_URL}${userEmail}`, {
-            // userName: "abc@gmail.com",
-            password: password,
-          })
+        const res = await axios.patch(`${RESET_PASSWORD_URL}${userEmail}`, {
+            password: newPassword,
+          }
+          )
           .then((response) => {
-            // console.log(response)
+            // console.log("response.data")
             toast.success('Password Reset Successfully', {
               position: "top-right",
               autoClose: 2000,
@@ -52,7 +51,7 @@ const RestPassword = () => {
             console.log("response.data", response.data);
             navigate("/login")
           }).catch(error => {
-            console.log(error.response.data.error)
+            // console.log(error.response.data.error,)
             toast.error(error.response.data.error, {
                 position: "top-right",
                 autoClose: 3000,
@@ -64,8 +63,8 @@ const RestPassword = () => {
                 theme: "light",
                 });
         })
-      } catch (error){
-        console.log(error.response.data.error)
+      } catch(error){
+        // console.log(error.response.data.error)
         toast.error(error.response.data.error, {
             position: "top-right",
             autoClose: 3000,
@@ -116,12 +115,12 @@ const RestPassword = () => {
                 <FormControl fullWidth variant="standard" sx={{ my: 2 }}>
                   <TextField
                     type="password"
-                    id="password"
-                    label="Password"
+                    id="newPassword"
+                    label="New Password"
                     variant="standard"
                     className="input-box"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
                   />
                 </FormControl>
                 <FormControl fullWidth variant="standard" sx={{ mt: 3 }}>

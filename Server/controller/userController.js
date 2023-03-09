@@ -2,6 +2,7 @@ const { default: mongoose } = require('mongoose')
 const User = require('../models/UserModel')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const validator = require('validator')
 
 const createToken = (_id) => {
    return  jwt.sign({_id}, process.env.SECRET, { expiresIn: '1h' })
@@ -46,33 +47,48 @@ const restPassword = async(req, res) => {
     const {email} = req.params;
     const {password} = req.body;
 
-    // VAlidation
-    if(!email)
+    try{
+        if(!email)
     {
         throw Error("Please Enter Email")
     }
-    
+
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
 
     const users = await User.findOneAndUpdate({email: email},{password: hash})
-    
     if(!users) {
-        return res.status(400).json({error: 'No user exist'})
+        // return res.status(400).json({error: 'No user exist'})
+        throw Error("No user exist")
     }
 
-    let token;
+    if(!validator.isStrongPassword(password)){
+        // return  res.status(400).json({message: 'Password not strong'})
+        throw Error("Password not strong")
+     }
+
+   
+    
+    
+    // let token;
     
     // --- Match Password
     const isMatch = await bcrypt.compare(password, users.password);
-    if (!isMatch) return res.status(401).send('Invalid password');
+    if (isMatch) return res.status(401).send('Please Enter Different password');
     else {
-        token = createToken(users._id)
-        res.status(200).json({email, token})
+            // token = createToken(users._id)
+            res.status(200).json("Password Updated Successfully")
+        }
+        
+        // return users
+    
+
     }
-
-
-    return users
+    catch(error){
+        res.status(400).json({error: error.message})
+    }
+    // VAlidation
+    
 }
 
 module.exports = {
