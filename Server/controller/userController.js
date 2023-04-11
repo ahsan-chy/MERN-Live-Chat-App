@@ -38,7 +38,7 @@ const signUp = async(req, res) =>{
     const {email, password } = req.body;
     
     // --- Get Cookie from header Display/ Get Cookies 
-    console.log(req.cookies)
+    // console.log(req.cookies)
     // console.log(req.cookies.jwt)
 
     try{
@@ -97,7 +97,25 @@ const restPassword = async(req, res) => {
     // VAlidation
     
 }
+const imageUpload = async (req, res, next) => {
 
+    if (!req.files || Object.keys(req.files).length === 0) {
+        return res.status(400).send('No files were uploaded.');
+      }
+      
+      const image = req.files.image;                         //+ Request for image
+      console.log(image)
+      const ext = req.files.image.mimetype.split('/')[1];
+      const randomName = Date.now() +'.' +ext;
+
+      const directoryPath = "./uploads/";
+      
+    //   image.mv(`${__dirname}/${randomName}`, (err) => {
+      image.mv(directoryPath + randomName, (err) => {
+        if(err) res.status(500).send("something went wrong")
+        res.send('file saved ')
+      })
+}
 module.exports = {
-    loginUser, signUp, restPassword
+    loginUser, signUp, restPassword,imageUpload
 }

@@ -5,6 +5,7 @@ const app = require("express")();
 const mongoose = require('mongoose');
 const server = require("http").createServer(app);
 const cors = require('cors')
+const fileUpload = require('express-fileupload')
 const bodyParser = require('body-parser')
 const userRoutes = require("./routes/route")
 const cookieParser = require('cookie-parser');
@@ -20,6 +21,8 @@ const io = require("socket.io")(server,{
  
 //Middleware
 // app.use(morgan('tiny'))
+app.use(fileUpload());
+
 app.use(cors({
     origin: "http://localhost:3000",    //Step 2: Specify origin
     credentials: true,  //Step 3: Credintials True (It will work to make both parties available to exchange data)
