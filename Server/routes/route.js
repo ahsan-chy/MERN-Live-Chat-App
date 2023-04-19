@@ -1,12 +1,11 @@
 const express = require('express');
-const { loginUser, signUp, restPassword, imageUpload } = require('../controller/userController.js');
-// const {imagesUpload} = require('../controller/ImageController.js')
+const { loginUser, signUp, restPassword } = require('../controller/userController.js');
+const uploadController = require('../controller/ImageController.js')
 //routers
 const router = express.Router();
 
 //+ Upload Image
-router.post('/upload', imageUpload)
-// router.post('/upload-multer-image', upload, imagesUpload)
+router.post('/upload-multer-image', uploadController.imagesUpload)
 
 // - Login Route
 router.post('/login', loginUser)
