@@ -4,11 +4,11 @@ const mongoose = require('mongoose');
 const ImageSchema = new mongoose.Schema({
   avater: {
     type: String,
-    required: true
+    // required: true
   },
   url: {
     type: String,
-    required: true
+    // required: true
   }
 });
 
